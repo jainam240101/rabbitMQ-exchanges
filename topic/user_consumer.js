@@ -3,7 +3,7 @@ const amqlib = require("amqplib");
 
 const connectionString = "amqp://localhost:5672";
 const exchange = "topic_testing";
-const routing_key = "eu.berlin.#";
+const routing_key = "users.#";
 
 const consumer = async () => {
   try {

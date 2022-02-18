@@ -3,9 +3,7 @@
 const amqlib = require("amqplib");
 
 const connectionString = "amqp://localhost:5672";
-const message = "This is a Direct Exchange Message";
 const exchange = "direct_testing";
-// const routing_key = "berlin";
 
 const publish = async (routing_key) => {
   try {
@@ -14,9 +12,11 @@ const publish = async (routing_key) => {
     const channel = await connection.createChannel();
 
     await channel.assertExchange(exchange, "direct", { durable: false });
-    channel.publish(exchange, routing_key, Buffer.from(message));
+
+    const msg = `This is Indian Embassy sending visa applicent for user xyz123 to ${routing_key} Embassy`;
+    channel.publish(exchange, routing_key, Buffer.from(msg));
     setTimeout(() => {
-      console.log("Message Published to Exchange");
+      console.log("Message Published with routing key ", routing_key);
       process.exit(0);
     }, 500);
   } catch (error) {
@@ -24,4 +24,5 @@ const publish = async (routing_key) => {
   }
 };
 
-publish("argentina");
+publish("us.nyc");
+// publish("au.syd");

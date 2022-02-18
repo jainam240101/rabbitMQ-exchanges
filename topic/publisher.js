@@ -3,11 +3,9 @@
 const amqlib = require("amqplib");
 
 const connectionString = "amqp://localhost:5672";
-const message = "This is Berlins Message";
 const exchange = "topic_testing";
-const routing_key = "eu.berlin.payments";
 
-const publish = async () => {
+const publish = async (routing_key, message) => {
   try {
     // Creating a Connection and channel
     const connection = await amqlib.connect(connectionString);
@@ -24,4 +22,7 @@ const publish = async () => {
   }
 };
 
-publish();
+// publish("users.registred", "A New User Registered");
+// publish("users.update", "A User Updated his info");
+// publish("payments.success", "The Payment Was Successful");
+publish("payments.failure", "The Payment failed");
